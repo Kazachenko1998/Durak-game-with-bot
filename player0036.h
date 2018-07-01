@@ -15,7 +15,6 @@ private:
 public:
     Player0036(const char *name) {
         namePlayer = name;
-        cout << "Uraaaaaa!!!!\n";
     }
 
     virtual void YouTurn(bool b);

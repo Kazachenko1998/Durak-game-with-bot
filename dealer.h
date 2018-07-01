@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+
+using namespace std;
 enum {
     PAS = 300, NOCARD = 400
 };
@@ -10,23 +13,26 @@ static const char *suits[] = {"Clubs", "Spades", "Hearts", "Diamonds"};
 static const char *suitsSymb[] = {"\x5", "\x6", "\x3", "\x4"};
 static const char *ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
 
-struct Card {
-private:
+class Card {
     int suit;
     int rank;
+
+private:
 
     bool operator>(const Card &card);
 
     friend class Dealer;
 
-    Card(int suit = -1, int rank = -1);
-
 public:
-    char *toString();
-
-    bool operator==(const Card &rhs) const;
-
-    bool operator!=(const Card &rhs) const;
+    Card(int rank, int suit) {
+        this->rank = rank;
+        this->suit = suit;
+    };
+    Card(){
+        this->rank = -1;
+        this->suit = -1;
+    }
+    std::string toString();
 };
 
 
@@ -35,12 +41,13 @@ public:
     static const int maxSuits = 4;
     static const int maxRanks = 13;
     static const int maxTrick = 6;
-    static const int allCard = 52;
+    static const int allCard = maxSuits * maxRanks;
 
 private:
     static int currentCard;
     static Card *trump;  // карта - козырь
     static Card *noCard, *pasCard; // карта - признак "нет карт" и "пас"
+    static Card deck[52] ; //колода карт
 
     static bool tableRanks[maxRanks];   // ранги карт, присутствующих на столе
 
@@ -50,7 +57,6 @@ private:
 
 
 public:
-    static Card deck[maxSuits * maxRanks]; //колода
 
     //перемешать колоду - инициализирует колоду и все переменные.
     //выбирает козыря
@@ -59,11 +65,13 @@ public:
     //взять карту из колоды. возвращает true, если карты еще остались.
     static bool GetCard(Card *&outCard);
 
+
+
     //возвращает текущего козыря в структуре Card (имеет значение только масть).
     static Card *GetTrump();
 
     // возвращает число вышедших из колоды карт
-    static int getcurrentCard();
+    static int getCurrentCard();
 
     //возвращает указатель на стол
     static Card *(*GetheadTrick())[maxTrick];
@@ -116,17 +124,4 @@ public:
     ~Dealer();
 };
 
-bool Card::operator==(const Card &rhs) const {
-    return suit == rhs.suit &&
-           rank == rhs.rank;
-}
 
-bool Card::operator!=(const Card &rhs) const {
-    return !(rhs == *this);
-}
-
-char *Card::toString() {
-    char *result = "  ";
-
-    return Card::rank+"  "+Card::suit +"\n";
-}

@@ -9,18 +9,15 @@
 
 
 int main() {
-
     int p1win = 0, p2win = 0, drawn = 0;
     for (int count = 0; count < 100; count++) {
-        Dealer::ShuffleDec();
-        for (int i = 0; i < Dealer::allCard; ++i) {
-            cout<<Dealer::deck[i];
-        }
+       Dealer::ShuffleDec();
+
         Card *temp;
         Player0036 p1("Konstantin");
         Player0036 p2("Grigory   ");
 
-
+//exit(0);
         p1.ShowCards();
 
         PlayerAbstract *player1;

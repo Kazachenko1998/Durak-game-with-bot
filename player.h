@@ -5,7 +5,7 @@ protected:
 
 
 public:
-//    virtual ~PlayerAbstract();
+    virtual ~PlayerAbstract();
 
     //получает признак "мой ход"
     virtual void YouTurn(bool) = 0;
@@ -31,6 +31,10 @@ public:
     // возвращает число карт на руках
     virtual int GetCardNum() = 0;
 };
+
+PlayerAbstract::~PlayerAbstract() {
+
+}
 
 
 
