@@ -122,19 +122,20 @@ void Dealer::ShowCard(const Card *card) {
 }
 
 void Dealer::ShowTable() {
-    cout << "\n";
+    cout << "\n" << "------------------------------------------------------------------------------------------" << "\n|";
     for (int i = 0; i < Dealer::maxTrick; i++) {
         if (Dealer::headTrick[0][i] != nullptr)
             ShowCard(Dealer::headTrick[0][i]);
-        else cout << " [==] ";
+        else cout << "               ";
     }
-    cout << "\n" << "----------------------------------" << "\n";
+
+    cout << "|\n|";
     for (int i = 0; i < Dealer::maxTrick; i++) {
         if (Dealer::headTrick[1][i] != nullptr)
             ShowCard(Dealer::headTrick[1][i]);
-        else cout << " [==] ";
+        else cout << "               ";
     }
-    cout << "\n";
+    cout << "|\n" << "------------------------------------------------------------------------------------------" << "\n";
 }
 
 Card *Dealer::GetPas() {
@@ -211,7 +212,7 @@ bool Card::operator!=(const Card &rhs) const {
 
 string Card::toString() {
     if (this->rank > 99)
-        return " && ";
+        return "      &&&&     ";
     string result;
     result = Dealer::SuitName(this);
     result += *"  ";

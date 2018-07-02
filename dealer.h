@@ -9,9 +9,9 @@ enum {
 //PAS - признак пропуска хода (нечем ходить или крыть)
 //NOCARD - признак пропуска хода (нет карт на руках)
 
-static const char *suits[] = {"Clubs", "Spades", "Hearts", "Diamonds"};
+static const char *suits[] = {"Clubs   ", "Spades  ", "Hearts  ", "Diamonds"};
 static const char *suitsSymb[] = {"\x5", "\x6", "\x3", "\x4"};
-static const char *ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+static const char *ranks[] = {"2    ", "3    ", "4    ", "5    ", "6    ", "7    ", "8    ", "9    ", "10   ", "Jack ", "Queen", "King ", "Ace  "};
 
 class Card {
 
