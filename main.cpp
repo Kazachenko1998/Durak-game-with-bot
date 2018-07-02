@@ -11,14 +11,14 @@
 int main() {
     int p1win = 0, p2win = 0, drawn = 0;
     for (int count = 0; count < 100; count++) {
-       Dealer::ShuffleDec();
+        cout << "\nStart new GAME\n";
+        Dealer::ShuffleDec();
 
         Card *temp;
         Player0036 p1("Konstantin");
         Player0036 p2("Grigory   ");
 
-//exit(0);
-        p1.ShowCards();
+//        p1.ShowCards();
 
         PlayerAbstract *player1;
         PlayerAbstract *player2;
@@ -66,10 +66,12 @@ int main() {
 
             player1->ShowCards();
             player2->ShowCards();
+            cout << "\n\n";
+
             while (Dealer::NextTrikEnable()) {
+                cout << "\n";
                 player1->ShowCards();
                 player2->ShowCards();
-
                 player1->PutCard();
                 Dealer::ShowTable();
                 player2->GetHeadTrick();
@@ -91,7 +93,7 @@ int main() {
                         // если последняя карта с которой ходили - пас или нет карт - переход хода, отбой
                     else if ((Dealer::RankIndex(plastCard) == PAS) ||
                              (Dealer::RankIndex(plastCard) == NOCARD) ||
-                             (Dealer::GetCurrentHeadTrik() == 6)
+                             (Dealer::GetCurrentHeadTrik() == Dealer::maxTrick)
                             ) {
                         Dealer::ClearTable();
                         player2->YouTurn(true);

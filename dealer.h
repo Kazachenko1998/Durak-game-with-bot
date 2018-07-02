@@ -34,7 +34,13 @@ public:
         this->suit = -1;
     }
     std::string toString();
+
+    bool operator==(const Card &rhs) const;
+
+    bool operator!=(const Card &rhs) const;
 };
+
+
 
 
 class Dealer {
@@ -73,6 +79,7 @@ public:
     //взять карту из колоды. возвращает true, если карты еще остались.
     static bool GetCard(Card *&outCard);
 
+    static bool GetCard();
 
 
     //возвращает текущего козыря в структуре Card (имеет значение только масть).
