@@ -14,8 +14,7 @@ static const char *suitsSymb[] = {"\x5", "\x6", "\x3", "\x4"};
 static const char *ranks[] = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
 
 class Card {
-    int suit;
-    int rank;
+
 
 private:
 
@@ -24,6 +23,8 @@ private:
     friend class Dealer;
 
 public:
+    int suit;
+    int rank;
     Card(int rank, int suit) {
         this->rank = rank;
         this->suit = suit;
@@ -42,6 +43,7 @@ public:
     static const int maxRanks = 13;
     static const int maxTrick = 6;
     static const int allCard = maxSuits * maxRanks;
+    static Card *headTrick[2][maxTrick];
 
 private:
     static int currentCard;
@@ -52,11 +54,17 @@ private:
     static bool tableRanks[maxRanks];   // ранги карт, присутствующих на столе
 
     static int currentHeadTrik;                 //номер хода в кону
-    static Card *headTrick[2][maxTrick];        // стол [0] - ход игрока, [1] - отбой карты
+    // стол [0] - ход игрока, [1] - отбой карты
     static void GenerateDeck();
 
 
 public:
+
+
+//    static Card *(*getHeadTrick())[2][maxTrick]{
+//        return *&Dealer::headTrick;
+//    };
+    //static Card *getHeadTrick()[];
 
     //перемешать колоду - инициализирует колоду и все переменные.
     //выбирает козыря
@@ -74,7 +82,8 @@ public:
     static int getCurrentCard();
 
     //возвращает указатель на стол
-    static Card *(*GetheadTrick())[maxTrick];
+   // static Card GetheadTrick()[maxTrick];
+//    static Card *(GetheadTrick())[maxTrick];
 
     //возвращает строковый литерал содержащий масть или достоинство карты
     static const char *SuitName(const Card *card);
@@ -92,6 +101,9 @@ public:
     // Проверяет возможен ли следующий ход (ходов<6,отбивающийся игрок не спасовал)
     static bool NextTrikEnable();
 
+    // добавляет число к CurrentHeadTrik
+    static void addCurrentHeadTrik();
+
 
     // * выводит на экран карту или стол
     static void ShowCard(const Card *card);
@@ -108,7 +120,6 @@ public:
 
     static Card *GetLastDefendCard();
 
-
     //очищает стол
     static void ClearTable();
 
@@ -122,6 +133,8 @@ public:
     static void Defend(Card *card);
 
     ~Dealer();
+
+
 };
 
 

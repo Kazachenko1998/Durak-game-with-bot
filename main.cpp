@@ -44,13 +44,16 @@ int main() {
             Dealer::GetCard(temp);
             player1->TakeOneCard(temp);
         }
+        player1->ShowCards();
+
         while (player2->INeedCard()) {
             Dealer::GetCard(temp);
             player2->TakeOneCard(temp);
         }
+        player2->ShowCards();
 
         int triknum = 1;
-        while ((player1->GetCardNum() && player2->GetCardNum()) || Dealer::getcurrentCard() < 52) {
+        while ((player1->GetCardNum() && player2->GetCardNum()) || Dealer::getCurrentCard() < 52) {
             std::cout << triknum++ << ":" << std::endl;
             while (player1->INeedCard()) {
                 Dealer::GetCard(temp);
@@ -64,13 +67,13 @@ int main() {
             player1->ShowCards();
             player2->ShowCards();
             while (Dealer::NextTrikEnable()) {
-                //player1->ShowCards();
-                //player2->ShowCards();
+                player1->ShowCards();
+                player2->ShowCards();
 
                 player1->PutCard();
-                //Dealer::ShowTable();
+                Dealer::ShowTable();
                 player2->GetHeadTrick();
-                //Dealer::ShowTable();
+                Dealer::ShowTable();
             }
             Dealer::ShowTable();
             int kht = Dealer::GetCurrentHeadTrik();

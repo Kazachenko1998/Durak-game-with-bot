@@ -1,3 +1,4 @@
+#include "dealer.h"
 #include <iostream>
 #include "dealer.h"
 #include <ctime>
@@ -12,7 +13,6 @@ bool Dealer::tableRanks[Dealer::maxRanks];   // ранги карт, прису�
 Card *Dealer::trump;
 int Dealer::currentHeadTrik;                 //номер хода в кону
 Card *Dealer::noCard, *Dealer::pasCard; // карта - признак "нет карт" и "пас"
-static Card *Dealer::headTrick[2][Dealer::maxTrick];        // стол [0] - ход игрока, [1] - отбой карты
 
 bool Card::operator>(const Card &card) {
     return (suit < card.suit && rank < card.rank);
@@ -31,12 +31,12 @@ int random() {
 void Dealer::ShuffleDec() {
     srand(time(NULL));
     GenerateDeck();
-    Dealer::trump = new Card(Dealer::deck[allCard-1].rank,Dealer::deck[allCard-1].suit);
-    cout<<trump->toString()<<"-11111111111111111\n";
-
+    currentHeadTrik = 0;
+    Dealer::trump = new Card(Dealer::deck[allCard - 1].rank, Dealer::deck[allCard - 1].suit);
+    cout << trump->toString() << "--trump\n";
 }
 
-void Dealer::GenerateDeck(){
+void Dealer::GenerateDeck() {
     int coutSucess = 0;
     for (int i = 0; i < allCard; ++i) {
         int j = random();
@@ -50,10 +50,16 @@ void Dealer::GenerateDeck(){
 };
 
 
-
 bool Dealer::GetCard(Card *&outCard) {
-//    if ()
-    return false;
+
+    if (currentCard >= allCard)
+        return false;
+    else {
+        int i = currentCard;
+        outCard = &deck[i];
+        currentCard++;
+        return true;
+    }
 }
 
 Card *Dealer::GetTrump() {
@@ -61,7 +67,7 @@ Card *Dealer::GetTrump() {
 }
 
 int Dealer::getCurrentCard() {
-    return 0;
+    return currentCard;
 }
 
 const char *Dealer::SuitName(const Card *card) {
@@ -81,19 +87,42 @@ int Dealer::RankIndex(const Card *card) {
 }
 
 int Dealer::GetCurrentHeadTrik() {
-    return 0;
+    return *&currentHeadTrik;
 }
 
+void Dealer::addCurrentHeadTrik() {
+    currentHeadTrik++;
+}
+
+
 bool Dealer::NextTrikEnable() {
+    for (int i = 0; i < 6; i++) {
+        if (Dealer::headTrick[0][i] == nullptr || Dealer::headTrick[1][i] == nullptr)
+            return true;
+    }
     return false;
 }
 
 void Dealer::ShowCard(const Card *card) {
     Card resultCard(card->rank, card->suit);
-    cout<<resultCard.toString();
+    cout << resultCard.toString();
 }
 
 void Dealer::ShowTable() {
+    cout <<"\n";
+    for (int i = 0; i < 6; i++) {
+        if (Dealer::headTrick[0][i] != nullptr)
+            ShowCard(Dealer::headTrick[0][i]);
+        else cout << " [==] ";
+    }
+    cout << "\n" << "----------------------------------" << "\n";
+    for (int i = 0; i < 6; i++) {
+        if (Dealer::headTrick[1][i] != nullptr)
+            ShowCard(Dealer::headTrick[1][i]);
+        else cout << " [==] ";
+    }
+    cout <<"\n";
+
 
 }
 
@@ -129,8 +158,22 @@ void Dealer::Defend(Card *card) {
 }
 
 Dealer::~Dealer() {
-
 }
+
+//Dealer::getHeadTrick() {
+//
+//}
+
+Card *Dealer::headTrick[2][Dealer::maxTrick];        // стол [0] - ход игрока, [1] - отбой карты
+
+//Dealer::getHeadTrick() {
+//    return *Dealer::headTrick;
+//}
+
+
+//Dealer::GetheadTrick() {
+//    return Dealer::headTrick;
+//}
 
 
 
