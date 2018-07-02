@@ -1,4 +1,5 @@
 
+#include "dealer.h"
 #include "player.h"
 #include <string>
 #include <list>
@@ -27,7 +28,7 @@ public:
 
     void GetHeadTrick() override;
 
-    virtual void TakeOneCard(Card *&nc);
+    void TakeOneCard(Card *&nc) override;
 
     void ShowCards() override;
 
@@ -54,29 +55,30 @@ bool checkCard(Card card) {
 void Player0036::PutCard() {
     int i = Dealer::GetCurrentHeadTrik();
     Card currentCard = *new Card(100, 100);
-    if (i == Dealer::maxTrick || listCard.size() == 0) {
+    if (i == Dealer::maxTrick || listCard.empty()) {
         currentCard.rank = NOCARD;
         Dealer::headTrick[0][i] = new Card(currentCard.rank, currentCard.suit);
+        delete(currentCard);
         return;
     }
 
     if (i == 0) {
-        for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++) {
-            if ((*it).suit != Dealer::GetTrump()->suit && (*it).rank < currentCard.rank) {
-                currentCard = *it;
+        for (auto &it : this->listCard) {
+            if (it.suit != Dealer::GetTrump()->suit && it.rank < currentCard.rank) {
+                currentCard = it;
             }
         }
         if (currentCard.rank == 100) {
-            for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++) {
-                if ((*it).rank < currentCard.rank) {
-                    currentCard = *it;
+            for (auto &it : this->listCard) {
+                if (it.rank < currentCard.rank) {
+                    currentCard = it;
                 }
             }
         }
     } else {
-        for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++) {
-            if ((*it).suit != Dealer::GetTrump()->suit && (*it).rank < currentCard.rank && checkCard(*it)) {
-                currentCard = *it;
+        for (auto &it : this->listCard) {
+            if (it.suit != Dealer::GetTrump()->suit && it.rank < currentCard.rank && checkCard(it)) {
+                currentCard = it;
             }
         }
     }
@@ -88,6 +90,7 @@ void Player0036::PutCard() {
     if (currentCard.rank != 100) {
         this->listCard.remove(currentCard);
     }
+    delete(currentCard);
 }
 
 
@@ -106,23 +109,23 @@ void Player0036::GetHeadTrick() {
     Card byteCard = *Dealer::headTrick[0][i];
     Card currentCard = *new Card(100, 100);
     if (byteCard.rank > 99) return;
-    if (i == Dealer::maxTrick || listCard.size() == 0) {
+    if (i == Dealer::maxTrick || listCard.empty()) {
         currentCard.rank = NOCARD;
         Dealer::headTrick[1][i] = new Card(currentCard.rank, currentCard.suit);
         Dealer::addCurrentHeadTrik();
         return;
     }
-    for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++) {
-        if (((*it).suit == byteCard.suit) && ((*it).rank > byteCard.rank) && ((*it).rank < currentCard.rank)) {
-            currentCard = *it;
+    for (auto &it : this->listCard) {
+        if ((it.suit == byteCard.suit) && (it.rank > byteCard.rank) && (it.rank < currentCard.rank)) {
+            currentCard = it;
         }
     }
     if (currentCard.rank == 100) {
-        for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++) {
+        for (auto &it : this->listCard) {
             if ((byteCard.suit != Dealer::GetTrump()->suit) &&
-                ((*it).suit == Dealer::GetTrump()->suit) &&
-                ((*it).rank < currentCard.rank)) {
-                currentCard = *it;
+                (it.suit == Dealer::GetTrump()->suit) &&
+                (it.rank < currentCard.rank)) {
+                currentCard = it;
             }
         }
     }
@@ -138,8 +141,8 @@ void Player0036::GetHeadTrick() {
 }
 
 void Player0036::ShowCards() {
-    for (std::list<Card>::iterator it = this->listCard.begin(); it != this->listCard.end(); it++)
-        cout << (*it).toString() << " ";
+    for (auto &it : this->listCard)
+        cout << it.toString() << " ";
     std::cout << '\n';
 }
 

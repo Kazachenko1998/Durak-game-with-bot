@@ -33,7 +33,7 @@ void Dealer::ShuffleDec() {
     GenerateDeck();
     ClearTable();
     currentCard = 0;
-    Dealer::trump = new Card(Dealer::deck[allCard - 1].rank, Dealer::deck[allCard - 1].suit);
+    Dealer::trump = &Dealer::deck[allCard - 1];
     cout << trump->toString() << "--trump\n";
 }
 
@@ -116,13 +116,13 @@ bool Dealer::NextTrikEnable() {
     return true;
 }
 
-void Dealer::ShowCard(const Card *card) {
-    Card resultCard(card->rank, card->suit);
-    cout << resultCard.toString();
+void Dealer::ShowCard(Card *card) {
+    cout << card->toString();
 }
 
 void Dealer::ShowTable() {
-    cout << "\n" << "------------------------------------------------------------------------------------------" << "\n|";
+    cout << "\n" << "------------------------------------------------------------------------------------------"
+         << "\n|";
     for (int i = 0; i < Dealer::maxTrick; i++) {
         if (Dealer::headTrick[0][i] != nullptr)
             ShowCard(Dealer::headTrick[0][i]);
@@ -135,7 +135,8 @@ void Dealer::ShowTable() {
             ShowCard(Dealer::headTrick[1][i]);
         else cout << "               ";
     }
-    cout << "|\n" << "------------------------------------------------------------------------------------------" << "\n";
+    cout << "|\n" << "------------------------------------------------------------------------------------------"
+         << "\n";
 }
 
 Card *Dealer::GetPas() {
@@ -219,6 +220,7 @@ string Card::toString() {
     result += Dealer::RankName(this);
     return result;
 }
+
 
 
 

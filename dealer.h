@@ -36,6 +36,8 @@ public:
         this->suit = -1;
     }
 
+    virtual ~Card();
+
     std::string toString();
 
     bool operator==(const Card &rhs) const;
@@ -114,7 +116,7 @@ public:
 
 
     // * выводит на экран карту или стол
-    static void ShowCard(const Card *card);
+    static void ShowCard(Card *card);
 
     static void ShowTable();
 

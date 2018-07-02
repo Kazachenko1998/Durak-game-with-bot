@@ -1,6 +1,6 @@
 #include "dealer.h"
 
-#pragma comment(lib, "dealer.lib")
+//#pragma comment(lib, "dealer.lib")
 
 #include "player0036.h"
 //#include <vld.h>

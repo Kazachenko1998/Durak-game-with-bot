@@ -1,5 +1,7 @@
 #pragma once
 
+#include "dealer.h"
+
 class PlayerAbstract {
 protected:
 
