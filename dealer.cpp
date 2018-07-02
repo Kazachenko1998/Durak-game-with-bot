@@ -31,7 +31,7 @@ int random() {
 void Dealer::ShuffleDec() {
     srand(static_cast<unsigned int>(time(nullptr)));
     GenerateDeck();
-    currentHeadTrik = 0;
+    ClearTable();
     currentCard = 0;
     Dealer::trump = new Card(Dealer::deck[allCard - 1].rank, Dealer::deck[allCard - 1].suit);
     cout << trump->toString() << "--trump\n";
@@ -51,7 +51,7 @@ void Dealer::GenerateDeck() {
         Dealer::deck[j] = newCard;
         coutSucess++;
     }
-};
+}
 
 
 bool Dealer::GetCard(Card *&outCard) {
@@ -138,11 +138,11 @@ void Dealer::ShowTable() {
 }
 
 Card *Dealer::GetPas() {
-    return NULL;
+    return nullptr;
 }
 
 Card *Dealer::GetNocard() {
-    return NULL;
+    return nullptr;
 }
 
 Card *Dealer::GetLastCard() {
@@ -167,7 +167,7 @@ void Dealer::ClearTable() {
     currentHeadTrik = 0;
     for (auto &i : headTrick) {
         for (auto &j : i) {
-            j = NULL;
+            j = nullptr;
         }
     }
 }
@@ -183,8 +183,7 @@ void Dealer::Attack(Card *card) {
 void Dealer::Defend(Card *card) {
 }
 
-Dealer::~Dealer() {
-}
+Dealer::~Dealer() = default;
 
 //Dealer::getHeadTrick() {
 //

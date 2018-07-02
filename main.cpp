@@ -84,7 +84,7 @@ int main() {
             {
                 Card *plastDefCard = Dealer::GetLastDefendCard();
                 Card *plastCard = Dealer::GetLastCard();
-                if (plastDefCard != NULL) {
+                if (plastDefCard != nullptr) {
                     // если последня карта отбоя  "пас" - второй забирает карты себе
                     if (Dealer::RankIndex(plastDefCard) == PAS) {
                         player2->TakeCards();

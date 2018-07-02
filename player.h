@@ -32,9 +32,7 @@ public:
     virtual int GetCardNum() = 0;
 };
 
-PlayerAbstract::~PlayerAbstract() {
-
-}
+PlayerAbstract::~PlayerAbstract() = default;
 
 
 

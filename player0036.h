@@ -12,28 +12,28 @@ using namespace std;
 class Player0036 : public PlayerAbstract {
 private:
     const char *namePlayer;
-    bool turn;
-    std::list<Card> listCard;
+    bool turn{};
+    std::list<Card> listCard{};
 public:
-    Player0036(const char *name) {
+    explicit Player0036(const char *name) {
         namePlayer = name;
     }
 
-    virtual void YouTurn(bool b);
+    void YouTurn(bool b) override;
 
-    virtual void PutCard();
+    void PutCard() override;
 
-    virtual void TakeCards();
+    void TakeCards() override;
 
-    virtual void GetHeadTrick();
+    void GetHeadTrick() override;
 
     virtual void TakeOneCard(Card *&nc);
 
-    virtual void ShowCards();
+    void ShowCards() override;
 
-    virtual bool INeedCard();
+    bool INeedCard() override;
 
-    virtual int GetCardNum();
+    int GetCardNum() override;
 };
 // Реализуйте интерфейсы абстрактного класса
 // Доступные методы из класса Dealer можно увидеть в файле dealer.h
@@ -144,7 +144,7 @@ void Player0036::ShowCards() {
 }
 
 void Player0036::TakeOneCard(Card *&nc) {
-    if(nc->rank < 99)
+    if (nc->rank < 99)
         listCard.push_back(*nc);
 }
 

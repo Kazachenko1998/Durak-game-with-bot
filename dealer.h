@@ -25,22 +25,23 @@ private:
 public:
     int suit;
     int rank;
+
     Card(int rank, int suit) {
         this->rank = rank;
         this->suit = suit;
     };
-    Card(){
+
+    Card() {
         this->rank = -1;
         this->suit = -1;
     }
+
     std::string toString();
 
     bool operator==(const Card &rhs) const;
 
     bool operator!=(const Card &rhs) const;
 };
-
-
 
 
 class Dealer {
@@ -55,7 +56,7 @@ private:
     static int currentCard;
     static Card *trump;  // карта - козырь
     static Card *noCard, *pasCard; // карта - признак "нет карт" и "пас"
-    static Card deck[52] ; //колода карт
+    static Card deck[52]; //колода карт
 
     static bool tableRanks[maxRanks];   // ранги карт, присутствующих на столе
 
@@ -89,7 +90,7 @@ public:
     static int getCurrentCard();
 
     //возвращает указатель на стол
-   // static Card GetheadTrick()[maxTrick];
+    // static Card GetheadTrick()[maxTrick];
 //    static Card *(GetheadTrick())[maxTrick];
 
     //возвращает строковый литерал содержащий масть или достоинство карты
